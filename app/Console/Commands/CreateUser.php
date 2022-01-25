@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\User;
+use App\Actions\Fortify\CreateNewUser;
 use Illuminate\Console\Command;
 
 class CreateUser extends Command
@@ -38,10 +38,11 @@ class CreateUser extends Command
      */
     public function handle()
     {
-        User::create([
+        (new CreateNewUser)->create([
             'name' => $this->ask('What is the name?'),
             'email' => $this->ask('What is the email?'),
-            'password' => bcrypt($this->secret('What is the password?')),
+            'password' => $this->secret('What is the password?'),
+            'password_confirmation' => $this->secret('Confirm password'),
         ]);
     }
 }
