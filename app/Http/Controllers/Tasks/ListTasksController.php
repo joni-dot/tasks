@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tasks;
 
 use App\Http\Controllers\Controller;
+use App\Models\Task;
 use Inertia\Inertia;
 
 class ListTasksController extends Controller
@@ -14,6 +15,8 @@ class ListTasksController extends Controller
      */
     public function __invoke()
     {
-        return Inertia::render('Tasks/Index');
+        return Inertia::render('Tasks/Index', [
+            'tasks' => Task::get(),
+        ]);
     }
 }
