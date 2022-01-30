@@ -19,7 +19,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="bg-gray-800" v-for="task in tasks" :key="task.id">
+                                        <tr class="bg-gray-800" v-for="task in tasks.data" :key="task.id">
                                             <td class="p-3">{{ task.id }}</td>
                                             <td class="p-3">{{ task.name }}</td>
                                         </tr>
@@ -27,6 +27,7 @@
                                 </table>
                             </div>
                         </div>
+                        <pagination class="mt-6" :links="tasks.links" />
                     </div>
                 </div>
             </div>
@@ -37,13 +38,15 @@
 <script>
     import { defineComponent } from 'vue'
     import AppLayout from '@/Layouts/AppLayout.vue'
+    import Pagination from '@/Shared/Pagination'
 
     export default defineComponent({
         components: {
             AppLayout,
+            Pagination,
         },
         props: {
-            tasks: Array,
+            tasks: Object,
         },
     })
 </script>

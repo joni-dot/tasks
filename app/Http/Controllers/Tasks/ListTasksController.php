@@ -16,7 +16,13 @@ class ListTasksController extends Controller
     public function __invoke()
     {
         return Inertia::render('Tasks/Index', [
-            'tasks' => Task::get(),
+            'tasks' => Task::query()
+                ->paginate(15)
+                ->withQueryString()
+                ->through(fn ($organization) => [
+                    'id' => $organization->id,
+                    'name' => $organization->name,
+                ]),
         ]);
     }
 }
