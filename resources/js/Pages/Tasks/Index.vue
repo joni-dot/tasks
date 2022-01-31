@@ -88,6 +88,7 @@
                                         py-2
                                         text-sm
                                     "
+                                    @click="openModalExample"
                                 >
                                     Create Task
                                 </button>
@@ -129,21 +130,35 @@
                 </div>
             </div>
         </div>
+        <vue-final-modal v-model="showModal" name="example">
+            Modal Content Here
+        </vue-final-modal>
     </app-layout>
 </template>
 
 <script>
-import { defineComponent } from "vue";
-import AppLayout from "@/Layouts/AppLayout.vue";
-import Pagination from "@/Shared/Pagination";
+    import { defineComponent } from "vue";
+    import AppLayout from "@/Layouts/AppLayout.vue";
+    import Pagination from "@/Shared/Pagination";
+    import { $vfm, VueFinalModal, ModalsContainer } from "vue-final-modal";
 
-export default defineComponent({
-    components: {
-        AppLayout,
-        Pagination,
-    },
-    props: {
-        tasks: Object,
-    },
-});
+    export default defineComponent({
+        components: {
+            AppLayout,
+            Pagination,
+            VueFinalModal,
+            ModalsContainer,
+        },
+        props: {
+            tasks: Object,
+        },
+        data: () => ({
+            showModal: false
+        }),
+        methods: {
+            openModalExample() {
+                $vfm.show('example')
+            }
+        }
+    });
 </script>
