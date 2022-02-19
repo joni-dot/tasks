@@ -88,7 +88,7 @@
                                         py-2
                                         text-sm
                                     "
-                                    @click="openModalExample"
+                                    @click="show = true"
                                 >
                                     Create Task
                                 </button>
@@ -130,35 +130,44 @@
                 </div>
             </div>
         </div>
-        <vue-final-modal v-model="showModal" name="example">
-            Modal Content Here
-        </vue-final-modal>
+        <v-tailwind-modal
+            v-model="show"
+            @confirm="confirm"
+            @cancel="cancel"
+        >
+            <template v-slot:title>Create task</template>
+            <p>
+                Example content.
+            </p>
+        </v-tailwind-modal>
     </app-layout>
 </template>
 
 <script>
-    import { defineComponent } from "vue";
-    import AppLayout from "@/Layouts/AppLayout.vue";
-    import Pagination from "@/Shared/Pagination";
-    import { $vfm, VueFinalModal, ModalsContainer } from "vue-final-modal";
+import { defineComponent } from "vue";
+import AppLayout from "@/Layouts/AppLayout.vue";
+import Pagination from "@/Shared/Pagination";
+import VTailwindModal from '@/Shared/VTailwindModal.vue'
 
-    export default defineComponent({
-        components: {
-            AppLayout,
-            Pagination,
-            VueFinalModal,
-            ModalsContainer,
+export default defineComponent({
+    components: {
+        AppLayout,
+        Pagination,
+        VTailwindModal
+    },
+    props: {
+        tasks: Object,
+    },
+    data: () => ({
+        show: false,
+    }),
+    methods: {
+        confirm() {
+            this.show = false;
         },
-        props: {
-            tasks: Object,
+        cancel(close) {
+            close();
         },
-        data: () => ({
-            showModal: false
-        }),
-        methods: {
-            openModalExample() {
-                $vfm.show('example')
-            }
-        }
-    });
+    },
+});
 </script>
