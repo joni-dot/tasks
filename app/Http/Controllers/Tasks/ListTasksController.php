@@ -17,6 +17,7 @@ class ListTasksController extends Controller
     {
         return Inertia::render('Tasks/Index', [
             'tasks' => Task::query()
+                ->latest('id')
                 ->paginate(15)
                 ->withQueryString()
                 ->through(fn ($organization) => [
