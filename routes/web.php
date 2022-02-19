@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Tasks\ListTasksController;
+use App\Http\Controllers\Tasks\StoreTaskController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,3 +33,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::middleware(['auth:sanctum', 'verified'])
     ->get('/tasks', ListTasksController::class)
     ->name('tasks.index');
+
+Route::middleware(['auth:sanctum', 'verified'])
+    ->post('/tasks', StoreTaskController::class)
+    ->name('tasks.store');

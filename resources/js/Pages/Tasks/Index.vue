@@ -130,40 +130,43 @@
                 </div>
             </div>
         </div>
-        <v-tailwind-modal
-            v-model="show"
-            @confirm="confirm"
-            @cancel="cancel"
-        >
+        <v-tailwind-modal v-model="show" @confirm="confirm" @cancel="cancel">
             <template v-slot:title>Create task</template>
-            <p>
-                Example content.
-            </p>
+            <form @submit.prevent="submit">
+                <label for="name" class="block text-gray-300 text-sm font-bold mb-2">Name:</label>
+                <input id="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="form.name" />
+            </form>
         </v-tailwind-modal>
     </app-layout>
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, reactive } from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/Shared/Pagination";
-import VTailwindModal from '@/Shared/VTailwindModal.vue'
+import VTailwindModal from "@/Shared/VTailwindModal.vue";
+import { Inertia } from "@inertiajs/inertia";
 
 export default defineComponent({
     components: {
         AppLayout,
         Pagination,
-        VTailwindModal
+        VTailwindModal,
     },
     props: {
         tasks: Object,
     },
     data: () => ({
         show: false,
+        form: reactive({
+            name: null,
+        })
     }),
     methods: {
         confirm() {
             this.show = false;
+
+            Inertia.post('/tasks', this.form);
         },
         cancel(close) {
             close();

@@ -10,6 +10,9 @@ class Task extends Model
 {
     use HasFactory;
 
+    /** @var array */
+    protected $guarded = ['id'];
+
     /**
      * Create a new factory instance for the model.
      *
