@@ -131,10 +131,40 @@
             </div>
         </div>
         <v-tailwind-modal v-model="show" @confirm="confirm" @cancel="cancel">
-            <template v-slot:title>Create task</template>
+            <template v-slot:title>Enter Task Details</template>
             <form @submit.prevent="submit">
-                <label for="name" class="block text-gray-300 text-sm font-bold mb-2">Name:</label>
-                <input id="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="form.name" />
+                <label
+                    for="name"
+                    class="
+                        text-gray-800 text-sm
+                        font-bold
+                        leading-tight
+                        tracking-normal
+                    "
+                    >Task Name</label
+                >
+                <input
+                    id="name"
+                    name="name"
+                    class="
+                        mb-5
+                        mt-2
+                        text-gray-600
+                        focus:outline-none focus:border focus:border-indigo-700
+                        font-normal
+                        w-full
+                        h-10
+                        flex
+                        items-center
+                        pl-3
+                        text-sm
+                        border-gray-300
+                        rounded
+                        border
+                    "
+                    placeholder="Name"
+                    v-model="form.name"
+                />
             </form>
         </v-tailwind-modal>
     </app-layout>
@@ -160,13 +190,13 @@ export default defineComponent({
         show: false,
         form: reactive({
             name: null,
-        })
+        }),
     }),
     methods: {
         confirm() {
             this.show = false;
 
-            Inertia.post('/tasks', this.form);
+            Inertia.post("/tasks", this.form);
         },
         cancel(close) {
             close();
