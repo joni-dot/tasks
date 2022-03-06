@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Tasks;
 
+use App\Actions\App\Tasks\CreateTask;
 use App\Http\Controllers\Controller;
-use App\Models\Task;
 use Illuminate\Support\Facades\Redirect;
 
 class StoreTaskController extends Controller
@@ -15,7 +15,7 @@ class StoreTaskController extends Controller
      */
     public function __invoke()
     {
-        Task::create(request()->all());
+        (new CreateTask)->create(request()->all());
 
         return Redirect::route('tasks.index');
     }
