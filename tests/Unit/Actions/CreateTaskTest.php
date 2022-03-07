@@ -9,16 +9,22 @@ use Tests\TestCase;
 class CreateTaskTest extends TestCase
 {
     /**
-     * A basic test example.
+     * Setup test.
      *
-     * @return void
+     * @return  void
      */
-    public function test_example()
+    protected function setUp(): void
     {
+        parent::setUp();
+
         (new CreateTask)->create([
             'name' => 'TestName',
         ]);
+    }
 
+    /** @test */
+    public function it_creates_task()
+    {
         $this->assertDatabaseHas((new Task)->getTable(), [
             'name' => 'TestName',
         ]);
