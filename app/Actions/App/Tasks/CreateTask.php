@@ -2,6 +2,7 @@
 
 namespace App\Actions\App\Tasks;
 
+use App\Events\TaskCreated;
 use App\Models\Task;
 
 class CreateTask
@@ -14,6 +15,8 @@ class CreateTask
      */
     public function create(array $params)
     {
-        Task::create($params);
+        TaskCreated::dispatch(
+            Task::create($params)
+        );
     }
 }
