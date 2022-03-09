@@ -130,14 +130,14 @@
 </template>
 
 <script>
-import { $vfm, VueFinalModal, ModalsContainer } from "vue-final-modal";
+    import { $vfm, VueFinalModal, ModalsContainer } from "vue-final-modal";
 
-export default {
-    components: {
-        VueFinalModal,
-        ModalsContainer,
-    },
-    name: "VTailwindModal",
-    inheritAttrs: false,
-};
+    export default {
+        components: {
+            VueFinalModal,
+            ModalsContainer,
+        },
+        name: "VTailwindModal",
+        inheritAttrs: false,
+    };
 </script>

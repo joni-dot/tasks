@@ -130,43 +130,7 @@
                 </div>
             </div>
         </div>
-        <v-tailwind-modal v-model="show" @confirm="confirm" @cancel="cancel">
-            <template v-slot:title>Enter Task Details</template>
-            <form @submit.prevent="submit">
-                <label
-                    for="name"
-                    class="
-                        text-gray-800 text-sm
-                        font-bold
-                        leading-tight
-                        tracking-normal
-                    "
-                    >Task Name</label
-                >
-                <input
-                    id="name"
-                    name="name"
-                    class="
-                        mb-5
-                        mt-2
-                        text-gray-600
-                        focus:outline-none focus:border focus:border-indigo-700
-                        font-normal
-                        w-full
-                        h-10
-                        flex
-                        items-center
-                        pl-3
-                        text-sm
-                        border-gray-300
-                        rounded
-                        border
-                    "
-                    placeholder="Name"
-                    v-model="form.name"
-                />
-            </form>
-        </v-tailwind-modal>
+        <create-task-modal :show="show" />
     </app-layout>
 </template>
 
@@ -174,33 +138,20 @@
 import { defineComponent, reactive } from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/Shared/Pagination";
-import VTailwindModal from "@/Shared/VTailwindModal.vue";
+import CreateTaskModal from "@/Pages/Tasks/Partials/CreateTaskModal.vue";
 import { Inertia } from "@inertiajs/inertia";
 
 export default defineComponent({
     components: {
         AppLayout,
         Pagination,
-        VTailwindModal,
+        CreateTaskModal,
     },
     props: {
         tasks: Object,
     },
     data: () => ({
         show: false,
-        form: reactive({
-            name: null,
-        }),
     }),
-    methods: {
-        confirm() {
-            this.show = false;
-
-            Inertia.post("/tasks", this.form);
-        },
-        cancel(close) {
-            close();
-        },
-    },
 });
 </script>
