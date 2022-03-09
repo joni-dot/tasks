@@ -130,7 +130,7 @@
                 </div>
             </div>
         </div>
-        <create-task-modal :show="show" />
+        <create-task-modal :show="show" @modalClose="show = false" />
     </app-layout>
 </template>
 
@@ -139,7 +139,6 @@ import { defineComponent, reactive } from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/Shared/Pagination";
 import CreateTaskModal from "@/Pages/Tasks/Partials/CreateTaskModal.vue";
-import { Inertia } from "@inertiajs/inertia";
 
 export default defineComponent({
     components: {

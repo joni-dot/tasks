@@ -40,6 +40,7 @@
 
 <script>
     import { reactive } from "vue";
+    import { Inertia } from "@inertiajs/inertia";
     import VTailwindModal from "@/Shared/VTailwindModal.vue";
 
     export default {
@@ -56,12 +57,14 @@
         }),
         methods: {
             confirm() {
-                this.show = false;
-
                 Inertia.post("/tasks", this.form);
+
+                this.$emit('modalClose');
             },
             cancel(close) {
                 close();
+
+                this.$emit('modalClose');
             },
         },
     };
