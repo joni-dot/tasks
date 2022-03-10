@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Tasks\DeleteTaskController;
 use App\Http\Controllers\Tasks\ListTasksController;
 use App\Http\Controllers\Tasks\StoreTaskController;
 use Illuminate\Foundation\Application;
@@ -37,3 +38,7 @@ Route::middleware(['auth:sanctum', 'verified'])
 Route::middleware(['auth:sanctum', 'verified'])
     ->post('/tasks', StoreTaskController::class)
     ->name('tasks.store');
+
+Route::middleware(['auth:sanctum', 'verified'])
+    ->delete('/tasks/{task}', DeleteTaskController::class)
+    ->name('tasks.delete');
