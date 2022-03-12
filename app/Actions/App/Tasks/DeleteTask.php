@@ -2,6 +2,7 @@
 
 namespace App\Actions\App\Tasks;
 
+use App\Events\Tasks\TaskDeleted;
 use App\Models\Task;
 
 class DeleteTask
@@ -12,8 +13,12 @@ class DeleteTask
      * @param  \App\Models\Task  $task
      * @return bool
      */
-    public function delete(Task $task): bool
+    public function delete(Task $task): Task
     {
-        return $task->delete();
+        TaskDeleted::dispatch(
+            $deletedTask = tap($task)->delete()
+        );
+
+        return $deletedTask;
     }
 }
