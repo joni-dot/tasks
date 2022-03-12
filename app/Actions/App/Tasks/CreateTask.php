@@ -13,10 +13,12 @@ class CreateTask
      * @param  array  $params
      * @return \App\Models\Task
      */
-    public function create(array $params)
+    public function create(array $params): Task
     {
         TaskCreated::dispatch(
-            Task::create($params)
+            $createdTask = Task::create($params)
         );
+
+        return $createdTask;
     }
 }
