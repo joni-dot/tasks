@@ -29,7 +29,7 @@ class CreateTaskTest extends TestCase
     /** @test */
     public function it_creates_task()
     {
-        $this->assertDatabaseHas((new Task)->getTable(), [
+        $this->assertDatabaseHas(Task::tableName(), [
             'name' => 'TestName',
         ]);
     }

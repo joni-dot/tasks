@@ -32,7 +32,7 @@ class DeleteTaskTest extends TestCase
     /** @test */
     public function it_deletes_task()
     {
-        $this->assertDatabaseMissing((new Task)->getTable(), [
+        $this->assertDatabaseMissing(Task::tableName(), [
             'id' => $this->deletableTask,
         ]);
     }
