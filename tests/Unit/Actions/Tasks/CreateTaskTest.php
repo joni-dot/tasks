@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Unit\Actions;
+namespace Tests\Unit\Actions\Tasks;
 
 use App\Actions\App\Tasks\CreateTask;
-use App\Events\TaskCreated;
+use App\Events\Tasks\TaskCreated;
 use App\Models\Task;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
