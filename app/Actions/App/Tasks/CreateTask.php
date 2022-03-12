@@ -2,7 +2,7 @@
 
 namespace App\Actions\App\Tasks;
 
-use App\Events\TaskCreated;
+use App\Events\Tasks\TaskCreated;
 use App\Models\Task;
 
 class CreateTask

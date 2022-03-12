@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace App\Events\Tasks;
 
 use App\Models\Task;
 use Illuminate\Broadcasting\InteractsWithSockets;
