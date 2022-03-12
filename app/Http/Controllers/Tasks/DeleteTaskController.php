@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Tasks;
 
+use App\Actions\App\Tasks\DeleteTask;
 use App\Http\Controllers\Controller;
 use App\Models\Task;
 use Illuminate\Support\Facades\Redirect;
@@ -15,7 +16,7 @@ class DeleteTaskController extends Controller
      */
     public function __invoke(Task $task)
     {
-        $task->delete();
+        (new DeleteTask)->delete($task);
 
         return Redirect::route('tasks.index');
     }
