@@ -84,12 +84,13 @@
                                         bg-green-900
                                         rounded
                                         text-white
-                                        px-8
+                                        px-4
                                         py-2
                                         text-sm
                                     "
                                     @click="show = true"
                                 >
+                                    <PlusCircleIcon class="h-5 w-5 text-white inline mr-1"/>
                                     Create Task
                                 </button>
                             </div>
@@ -165,12 +166,14 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/Shared/Pagination";
 import CreateTaskModal from "@/Pages/Tasks/Partials/CreateTaskModal.vue";
 import { Inertia } from "@inertiajs/inertia";
+import { PlusCircleIcon } from '@heroicons/vue/solid';
 
 export default defineComponent({
     components: {
         AppLayout,
         Pagination,
         CreateTaskModal,
+        PlusCircleIcon,
     },
     props: {
         tasks: Object,
