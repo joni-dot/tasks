@@ -140,7 +140,7 @@
 </template>
 
 <script>
-import { defineComponent, reactive } from "vue";
+import { defineComponent } from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/Shared/Pagination";
 import CreateTaskModal from "@/Pages/Tasks/Partials/CreateTaskModal.vue";
