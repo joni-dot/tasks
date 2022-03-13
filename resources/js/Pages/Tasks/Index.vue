@@ -137,12 +137,13 @@
                                                         bg-red-900
                                                         rounded
                                                         text-white
-                                                        px-8
+                                                        px-4
                                                         py-2
                                                         text-sm
                                                     "
                                                     @click="deleteTask(task.id)"
                                                 >
+                                                    <TrashIcon class="h-5 w-5 text-white inline mr-1"/>
                                                     Delete
                                                 </button>
                                             </td>
@@ -166,7 +167,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/Shared/Pagination";
 import CreateTaskModal from "@/Pages/Tasks/Partials/CreateTaskModal.vue";
 import { Inertia } from "@inertiajs/inertia";
-import { PlusCircleIcon } from '@heroicons/vue/solid';
+import { PlusCircleIcon, TrashIcon } from '@heroicons/vue/solid';
 
 export default defineComponent({
     components: {
@@ -174,6 +175,7 @@ export default defineComponent({
         Pagination,
         CreateTaskModal,
         PlusCircleIcon,
+        TrashIcon,
     },
     props: {
         tasks: Object,
