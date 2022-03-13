@@ -123,29 +123,7 @@
                                             <td class="p-3">{{ task.id }}</td>
                                             <td class="p-3">{{ task.name }}</td>
                                             <td class="p-3 text-right">
-                                                <button
-                                                    class="
-                                                        transition
-                                                        duration-150
-                                                        ease-in-out
-                                                        hover:bg-red-700
-                                                        focus:outline-none
-                                                        focus:ring-2
-                                                        focus:ring-offset-2
-                                                        focus:ring-red-700
-                                                        border
-                                                        bg-red-900
-                                                        rounded
-                                                        text-white
-                                                        px-4
-                                                        py-2
-                                                        text-sm
-                                                    "
-                                                    @click="deleteTask(task.id)"
-                                                >
-                                                    <TrashIcon class="h-5 w-5 text-white inline mr-1"/>
-                                                    Delete
-                                                </button>
+                                                <delete-task-button :taskId="task.id" />
                                             </td>
                                         </tr>
                                     </tbody>
@@ -166,8 +144,8 @@ import { defineComponent, reactive } from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/Shared/Pagination";
 import CreateTaskModal from "@/Pages/Tasks/Partials/CreateTaskModal.vue";
-import { Inertia } from "@inertiajs/inertia";
-import { PlusCircleIcon, TrashIcon } from '@heroicons/vue/solid';
+import { PlusCircleIcon } from '@heroicons/vue/solid';
+import DeleteTaskButton from "@/Pages/Tasks/Partials/DeleteTaskButton.vue";
 
 export default defineComponent({
     components: {
@@ -175,7 +153,7 @@ export default defineComponent({
         Pagination,
         CreateTaskModal,
         PlusCircleIcon,
-        TrashIcon,
+        DeleteTaskButton,
     },
     props: {
         tasks: Object,
@@ -183,12 +161,5 @@ export default defineComponent({
     data: () => ({
         show: false,
     }),
-    methods: {
-        deleteTask(taskId) {
-            Inertia.delete("/tasks/"+taskId, {
-                _token: this.$page.props.csrf_token,
-            });
-        },
-    },
 });
 </script>
