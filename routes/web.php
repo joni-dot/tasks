@@ -27,18 +27,16 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::redirect('/dashboard', '/tasks')->name('dashboard');
 
-Route::middleware(['auth:sanctum', 'verified'])
-    ->get('/tasks', ListTasksController::class)
-    ->name('tasks.index');
+    Route::get('/tasks', ListTasksController::class)
+        ->name('tasks.index');
+    
+    Route::post('/tasks', StoreTaskController::class)
+        ->name('tasks.store');
+    
+    Route::delete('/tasks/{task}', DeleteTaskController::class)
+        ->name('tasks.delete');
+});
 
-Route::middleware(['auth:sanctum', 'verified'])
-    ->post('/tasks', StoreTaskController::class)
-    ->name('tasks.store');
-
-Route::middleware(['auth:sanctum', 'verified'])
-    ->delete('/tasks/{task}', DeleteTaskController::class)
-    ->name('tasks.delete');
