@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Tasks\DeleteTaskController;
-use App\Http\Controllers\Tasks\ListTasksController;
-use App\Http\Controllers\Tasks\StoreTaskController;
+use App\Http\Controllers\Web\Tasks\DeleteTaskController;
+use App\Http\Controllers\Web\Tasks\ListTasksController;
+use App\Http\Controllers\Web\Tasks\StoreTaskController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,11 +32,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/tasks', ListTasksController::class)
         ->name('tasks.index');
-    
+
     Route::post('/tasks', StoreTaskController::class)
         ->name('tasks.store');
-    
+
     Route::delete('/tasks/{task}', DeleteTaskController::class)
         ->name('tasks.delete');
 });
-
