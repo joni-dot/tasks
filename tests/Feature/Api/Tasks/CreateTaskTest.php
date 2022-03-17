@@ -5,6 +5,7 @@ namespace Tests\Feature\Api\Tasks;
 use App\Events\Tasks\TaskCreated;
 use App\Models\Task;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 use Tests\Traits\CanSignIn;
 
@@ -24,19 +25,28 @@ class CreateTaskTest extends TestCase
         Event::fake();
     }
 
-    /** @test */
-    public function it_creates_task()
+    /**
+     * Send valid post request.
+     *
+     * @return \Illuminate\Testing\TestResponse
+     */
+    protected function validJsonPost(): TestResponse
     {
-        $this->signIn();
-
-        $this->json(
+        return $this->json(
             method: 'post',
             uri: route('api.tasks.create'),
             data: [
                 'name' => 'TestName',
             ]
-        )
-            ->assertStatus(200);
+        );
+    }
+
+    /** @test */
+    public function it_creates_task()
+    {
+        $this->signIn();
+
+        $this->validJsonPost()->assertStatus(200);
 
         $this->assertDatabaseHas(Task::tableName(), [
             'name' => 'TestName',
@@ -48,14 +58,7 @@ class CreateTaskTest extends TestCase
     {
         $this->signIn();
 
-        $this->json(
-            method: 'post',
-            uri: route('api.tasks.create'),
-            data: [
-                'name' => 'TestName',
-            ]
-        )
-            ->assertStatus(200);
+        $this->validJsonPost()->assertStatus(200);
 
         Event::assertDispatched(TaskCreated::class);
     }
