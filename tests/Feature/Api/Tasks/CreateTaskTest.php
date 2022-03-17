@@ -28,16 +28,17 @@ class CreateTaskTest extends TestCase
     /**
      * Send valid post request.
      *
+     * @param  array  $data
      * @return \Illuminate\Testing\TestResponse
      */
-    protected function validJsonPost(): TestResponse
+    protected function validJsonPost(array $data = []): TestResponse
     {
         return $this->json(
             method: 'post',
             uri: route('api.tasks.create'),
-            data: [
+            data: array_merge([
                 'name' => 'TestName',
-            ]
+            ], $data)
         );
     }
 
@@ -46,10 +47,13 @@ class CreateTaskTest extends TestCase
     {
         $this->signIn();
 
-        $this->validJsonPost()->assertStatus(200);
+        $this->validJsonPost([
+            'name' => 'SomeTestName',
+        ])
+            ->assertStatus(200);
 
         $this->assertDatabaseHas(Task::tableName(), [
-            'name' => 'TestName',
+            'name' => 'SomeTestName',
         ]);
     }
 
