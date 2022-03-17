@@ -4,12 +4,14 @@ namespace Tests\Feature\Api\Tasks;
 
 use App\Events\Tasks\TaskCreated;
 use App\Models\Task;
-use App\Models\User;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
+use Tests\Traits\CanSignIn;
 
 class CreateTaskTest extends TestCase
 {
+    use CanSignIn;
+
     /**
      * Setup test.
      *
@@ -25,7 +27,7 @@ class CreateTaskTest extends TestCase
     /** @test */
     public function it_creates_task()
     {
-        $this->actingAs(User::factory()->create());
+        $this->signIn();
 
         $this->json(
             method: 'post',
@@ -44,7 +46,7 @@ class CreateTaskTest extends TestCase
     /** @test */
     public function it_dispatches_event()
     {
-        $this->actingAs(User::factory()->create());
+        $this->signIn();
 
         $this->json(
             method: 'post',
