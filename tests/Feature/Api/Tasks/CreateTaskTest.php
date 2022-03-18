@@ -43,6 +43,19 @@ class CreateTaskTest extends TestCase
     }
 
     /** @test */
+    public function guest_cannot_create()
+    {
+        $this->validJsonPost([
+            'name' => 'GuestTask',
+        ])
+            ->assertStatus(401);
+
+        $this->assertDatabaseMissing(Task::tableName(), [
+            'name' => 'GuestTask',
+        ]);
+    }
+
+    /** @test */
     public function it_creates_task()
     {
         $this->signIn();
