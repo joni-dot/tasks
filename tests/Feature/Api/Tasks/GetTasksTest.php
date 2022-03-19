@@ -60,4 +60,101 @@ class GetTasksTest extends TestCase
                 ],
             ]);
     }
+
+    /** @test */
+    public function it_can_paginate()
+    {
+        $this->signIn();
+
+        $tasks = [
+            Task::factory()->create(['name' => 'First']),
+            Task::factory()->create(['name' => 'Second']),
+        ];
+
+        $this->validJsonGet([
+            'page' => [
+                'size' => 1,
+                'number' => 2,
+            ],
+        ])
+            ->assertStatus(200)
+            ->assertJson([
+                'data' => [
+                    [
+                        'id' => $tasks[1]->id,
+                        'name' => $tasks[1]->name,
+                    ],
+                ],
+            ])
+            ->assertJsonMissing([
+                'data' => [
+                    [
+                        'id' => $tasks[0]->id,
+                        'name' => $tasks[0]->name,
+                    ],
+                ],
+            ]);
+    }
+
+    /** @test */
+    public function it_can_filter_by_name()
+    {
+        $this->signIn();
+
+        $tasks = [
+            Task::factory()->create(['name' => 'First']),
+            Task::factory()->create(['name' => 'Second']),
+        ];
+
+        $this->validJsonGet([
+            'filter' => [
+                'name' => 'second',
+            ],
+        ])
+            ->assertStatus(200)
+            ->assertJson([
+                'data' => [
+                    [
+                        'id' => $tasks[1]->id,
+                        'name' => $tasks[1]->name,
+                    ],
+                ],
+            ])
+            ->assertJsonMissing([
+                'data' => [
+                    [
+                        'id' => $tasks[0]->id,
+                        'name' => $tasks[0]->name,
+                    ],
+                ],
+            ]);
+    }
+
+    /** @test */
+    public function it_can_sort_by_name_desc()
+    {
+        $this->signIn();
+
+        $tasks = [
+            Task::factory()->create(['name' => 'First']),
+            Task::factory()->create(['name' => 'Second']),
+        ];
+
+        $this->validJsonGet([
+            'sort' => '-name',
+        ])
+            ->assertStatus(200)
+            ->assertJson([
+                'data' => [
+                    [
+                        'id' => $tasks[1]->id,
+                        'name' => $tasks[1]->name,
+                    ],
+                    [
+                        'id' => $tasks[0]->id,
+                        'name' => $tasks[0]->name,
+                    ],
+                ],
+            ]);
+    }
 }
