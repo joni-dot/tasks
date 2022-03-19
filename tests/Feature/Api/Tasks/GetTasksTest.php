@@ -56,7 +56,7 @@ class GetTasksTest extends TestCase
                     [
                         'id' => $task->id,
                         'name' => $task->name,
-                    ]
+                    ],
                 ],
             ]);
     }

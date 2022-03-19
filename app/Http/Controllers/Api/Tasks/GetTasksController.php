@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Tasks;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class GetTasksController extends Controller
 {
@@ -16,7 +17,10 @@ class GetTasksController extends Controller
     public function __invoke()
     {
         return TaskResource::collection(
-            Task::query()->take(15)->get()
+            QueryBuilder::for(Task::class)
+                ->allowedFilters(['name'])
+                ->allowedSorts(['name'])
+                ->jsonPaginate()
         );
     }
 }
