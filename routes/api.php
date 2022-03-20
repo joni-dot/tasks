@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Tasks\CreateTaskController;
 use App\Http\Controllers\Api\Tasks\DeleteTaskController;
 use App\Http\Controllers\Api\Tasks\GetTasksController;
+use App\Http\Controllers\Api\Tasks\ShowTaskController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('api/tasks', GetTasksController::class)
         ->name('api.tasks.index');
+
+    Route::get('api/tasks/{task}', ShowTaskController::class)
+        ->name('api.tasks.show');
 
     Route::post('api/tasks', CreateTaskController::class)
         ->name('api.tasks.create');
