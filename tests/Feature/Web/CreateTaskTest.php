@@ -34,7 +34,7 @@ class CreateTaskTest extends TestCase
     protected function validPost(array $data = []): TestResponse
     {
         return $this->post(
-            uri: route('tasks.create'),
+            uri: route('tasks.store'),
             data: array_merge([
                 'name' => 'TestName',
             ], $data)
@@ -47,7 +47,7 @@ class CreateTaskTest extends TestCase
         $this->validPost([
             'name' => 'GuestTask',
         ])
-            ->assertStatus(401);
+            ->assertStatus(302);
 
         $this->assertDatabaseMissing(Task::tableName(), [
             'name' => 'GuestTask',
@@ -62,7 +62,7 @@ class CreateTaskTest extends TestCase
         $this->validPost([
             'name' => 'SomeTestName',
         ])
-            ->assertStatus(200);
+            ->assertStatus(302);
 
         $this->assertDatabaseHas(Task::tableName(), [
             'name' => 'SomeTestName',
@@ -74,7 +74,7 @@ class CreateTaskTest extends TestCase
     {
         $this->signIn();
 
-        $this->validPost()->assertStatus(200);
+        $this->validPost()->assertStatus(302);
 
         Event::assertDispatched(TaskCreated::class);
     }
