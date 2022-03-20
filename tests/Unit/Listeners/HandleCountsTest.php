@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Actions\Tasks;
+namespace Tests\Unit\Listeners;
 
 use App\Actions\App\Tasks\CreateTask;
 use App\Models\Count;
